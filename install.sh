@@ -15,20 +15,6 @@ if [[ ! -z "$PROD" ]]; then
   softwareupdate -i "$PROD" --verbose
 fi
 
-# Install vimrc
-if [[ ! -f ~/.vimrc ]]; then
-  echo "Installing Ultimate Vim configuration..."
-  git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-  sh ~/.vim_runtime/install_awesome_vimrc.sh
-  echo "set number" >> ~/.vim_runtime/my_configs.vim
-fi
-
-# Install Oh My Zsh
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
 # Check for Homebrew, install if not installed
 if test ! $(which brew); then
   echo "Installing Homebrew..."
@@ -65,6 +51,27 @@ PACKAGES=(
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
 
+# Install vimrc
+if [[ ! -d "${HOME}/.vim_runtime" ]]; then
+  echo "Installing Ultimate Vim configuration..."
+  git clone --depth=1 https://github.com/amix/vimrc.git ${HOME}/.vim_runtime
+  sh ${HOME}/.vim_runtime/install_awesome_vimrc.sh
+  echo "set number" >> ${HOME}/.vim_runtime/my_configs.vim
+fi
+
+# Install Oh My Zsh
+if [[ ! -d "${HOME}/.oh-my-zsh" ]]; then
+  echo "Installing Oh My Zsh..."
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+# Install Powerlevel10k
+if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
+  echo "Installing Powerlevel10k..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  sed -i -e 's/ZSH_THEME="\(.*\)"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ${HOME_ZSHRC}
+fi
+
 # Initialize GNU overrides
 if ! grep -q "GNU" ${HOME_ZSHRC}; then
   echo "Added GNU shell overrides to ${HOME_ZSHRC}"
@@ -92,7 +99,7 @@ if ! grep -q "jEnv" ${HOME_ZSHRC}; then
   echo '' >> ${HOME_ZPROFILE}
   echo '# jEnv support' >> ${HOME_ZPROFILE}
   echo 'eval "$(jenv init -)"' >> ${HOME_ZPROFILE}
-  eval "$(jenv init -)"
+  # eval "$(jenv init -)"
 
   jenv enable-plugin maven
   jenv enable-plugin export
