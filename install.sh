@@ -6,6 +6,7 @@ IFS=$'\n\t'
 # local vars
 HOME_ZPROFILE="$HOME/.zprofile"
 HOME_ZSHRC="$HOME/.zshrc"
+UNAME_MACHINE="$(/usr/bin/uname -m)"
 
 # find the CLI Tools update
 echo "Checking for CLI Tool updates..."
@@ -19,10 +20,14 @@ fi
 if test ! $(which brew); then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo "Added Homebrew shell to ${HOME_ZPROFILE}."
-  echo '# Add Homebrew support' >> ${HOME_ZPROFILE}
-  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ${HOME_ZPROFILE}
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  # load shellenv for Apple Silicon
+  if [[ "${UNAME_MACHINE}" == "arm64" ]]; then
+    echo "Added Homebrew shell to ${HOME_ZPROFILE}."
+    echo '# Add Homebrew support' >> ${HOME_ZPROFILE}
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ${HOME_ZPROFILE}
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
 fi
 
 # List of packages
