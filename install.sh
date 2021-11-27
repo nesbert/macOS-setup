@@ -99,12 +99,8 @@ if ! grep -q "jEnv" ${HOME_ZSHRC}; then
   echo '# jEnv support' >> ${HOME_ZSHRC}
   echo 'PATH="$HOME/.jenv/bin:$PATH"' >> ${HOME_ZSHRC}
   PATH="$HOME/.jenv/bin:$PATH"
-
-  echo "Added jEnv to ${HOME_ZPROFILE}."
-  echo '' >> ${HOME_ZPROFILE}
-  echo '# jEnv support' >> ${HOME_ZPROFILE}
-  echo 'eval "$(jenv init -)"' >> ${HOME_ZPROFILE}
-  # eval "$(jenv init -)"
+  echo 'eval "$(jenv init -)"' >> ${HOME_ZSHRC}
+  eval "$(jenv init -)"
 
   jenv enable-plugin maven
   jenv enable-plugin export
