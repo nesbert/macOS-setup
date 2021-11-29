@@ -153,3 +153,7 @@ CASKS=(
 
 echo "Installing cask apps..."
 brew install --cask ${CASKS[@]}
+
+echo "Added Aliases to ${HOME_ZSHRC}."
+echo '' >> ${HOME_ZSHRC}
+cat ./templates/aliases.sh >> ${HOME_ZSHRC}
