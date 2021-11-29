@@ -3,9 +3,16 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo "Updating & Upgrading Homebrew..."
-brew update
-brew upgrade
+if test $(which brew); then
+  echo "Updating Homebrew..."
+  brew update
+  brew upgrade
+fi
+
+if [[ -d "${HOME}/.oh-my-zsh" ]]; then
+  echo "Updating Oh My ZSH..."
+  "${HOME}/.oh-my-zsh"/tools/upgrade.sh
+fi
 
 if [[ -d ~/.vim_runtime ]]; then
   echo "Updating Ultimate Vim configuration..."

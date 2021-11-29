@@ -27,6 +27,7 @@ if test ! $(which brew); then
     echo '# Add Homebrew support' >> ${HOME_ZPROFILE}
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ${HOME_ZPROFILE}
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    echo 'FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' >> ${HOME_ZPROFILE}
   fi
 fi
 
@@ -139,7 +140,11 @@ brew install --cask ${JDKs[@]}
 CASKS=(
   # aldente
   alfred
+  appcleaner
   cacher
+  discord
+  github
+  # imazing
   iterm2
   # rectangle
   visual-studio-code
