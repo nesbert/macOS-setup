@@ -21,14 +21,17 @@ if test ! $(which brew); then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+  echo "Added Homebrew shell to ${HOME_ZPROFILE}."
+  echo '# Add Homebrew support' >> ${HOME_ZPROFILE}
+
   # load shellenv for Apple Silicon
   if [[ "${UNAME_MACHINE}" == "arm64" ]]; then
-    echo "Added Homebrew shell to ${HOME_ZPROFILE}."
-    echo '# Add Homebrew support' >> ${HOME_ZPROFILE}
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ${HOME_ZPROFILE}
     eval "$(/opt/homebrew/bin/brew shellenv)"
-    echo 'FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' >> ${HOME_ZPROFILE}
   fi
+
+  # add autocomplete for brew
+  echo 'FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' >> ${HOME_ZPROFILE}
 fi
 
 # List of packages
@@ -83,13 +86,13 @@ if ! grep -q "GNU" ${HOME_ZSHRC}; then
   echo "Added GNU shell overrides to ${HOME_ZSHRC}"
   echo '' >> ${HOME_ZSHRC}
   echo '# GNU shell overrides' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/gnu-indent/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
+  echo 'PATH="$(brew --prefix)/opt/gnu-which/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
 fi
 
 # Initialize jEnv
@@ -107,6 +110,7 @@ if ! grep -q "jEnv" ${HOME_ZSHRC}; then
   jenv enable-plugin export
 
   echo "Please add JDKs, example..."
+  echo "  /usr/libexec/java_home -V"
   echo "  jenv add <your_jdk_path>"
   echo "Other helpful commands..."
   echo "  jenv version"
@@ -117,9 +121,7 @@ if ! grep -q "jEnv" ${HOME_ZSHRC}; then
 fi
 
 # https://github.com/mdogan/homebrew-zulu
-# Multi ENV
-#   https://docs.azul.com/core/zulu-openjdk/manage-multiple-zulu-versions/macos
-#   /usr/libexec/java_home -v 8 --exec java -version
+# Multi ENV https://docs.azul.com/core/zulu-openjdk/manage-multiple-zulu-versions/macos
 JDKs=(
 #  zulu-jdk7
   zulu-jdk8

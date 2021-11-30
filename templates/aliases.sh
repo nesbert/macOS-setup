@@ -3,10 +3,10 @@
 #############################
  
 alias brew-check='brew update && brew outdated'
-alias brew-clean-docker='brew cleanup && brew doctor'
-alias brew-update='brew-check && brew upgrade && brew-clean-docker'
-alias brew-update-casks='brew-check && brew upgrade --cask && brew-clean-docker'
-alias brew-update-formula='brew-check && brew upgrade --formula && brew-clean-docker'
+alias brew-clean-docter='brew cleanup && brew doctor'
+alias brew-update='brew-check && brew upgrade && brew-clean-docter'
+alias brew-update-casks='brew-check && brew upgrade --cask && brew-clean-docter'
+alias brew-update-formula='brew-check && brew upgrade --formula && brew-clean-docter'
 
 alias my-ip="curl http://ipecho.net/plain; echo"
 alias my-weather="curl wttr.in/Las+Vegas,+NV+89138"
