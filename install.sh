@@ -130,8 +130,8 @@ JDKs=(
 #  zulu-jdk13
 #  zulu-jdk14
 #  zulu-jdk15
-  zulu-jdk16
-#  zulu-jdk17
+#  zulu-jdk16
+  zulu-jdk17
 #  zulu-mc
 )
 echo "Installing Zulu OpenJDKs..."
@@ -156,13 +156,15 @@ fi
 # List Cask Apps
 CASKS=(
   # aldente
-  alfred
+  # alfred
   appcleaner
+  # blender
   cacher
   discord
   github
   # imazing
   iterm2
+  raycast
   # rectangle
   visual-studio-code
   docker
@@ -171,6 +173,9 @@ CASKS=(
 echo "Installing cask apps..."
 brew install --cask ${CASKS[@]}
 
-echo "Added Aliases to ${HOME_ZSHRC}."
-echo '' >> ${HOME_ZSHRC}
-cat ./templates/aliases.sh >> ${HOME_ZSHRC}
+# Initialize Node Version Manager
+if ! grep -q "# Aliases" ${HOME_ZSHRC}; then
+  echo "Added Aliases to ${HOME_ZSHRC}."
+  echo '' >> ${HOME_ZSHRC}
+  cat ./templates/aliases.sh >> ${HOME_ZSHRC}
+fi
