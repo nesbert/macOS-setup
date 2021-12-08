@@ -179,3 +179,7 @@ if ! grep -q "# Aliases" ${HOME_ZSHRC}; then
   echo '' >> ${HOME_ZSHRC}
   cat ./templates/aliases.sh >> ${HOME_ZSHRC}
 fi
+
+echo "Running macOS defaults.sh..."
+# Run templates/defaults.sh
+source templates/defaults.sh
