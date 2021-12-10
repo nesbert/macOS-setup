@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-###############################################################################
-# Defaults (See https://github.com/mathiasbynens/dotfiles/blob/main/.macos)   #
-###############################################################################
+echo "Running defaults (https://github.com/mathiasbynens/dotfiles/blob/main/.macos)..."
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -75,7 +73,7 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+# chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 
 # Show the /Volumes folder
 sudo chflags nohidden /Volumes
@@ -116,8 +114,8 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-echo "Keyboard: Enable press-and-hold for keys"
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
+echo "Keyboard: Disable press-and-hold for keys"
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 echo "Keyboard: Set a blazingly fast keyboard repeat rate."
 defaults write NSGlobalDomain KeyRepeat -int 1 # default is 2

@@ -46,9 +46,7 @@ PACKAGES=(
   gnu-tar
   gnu-indent
   gnu-which
-  jenv
   jq
-  nvm
   tree
   yamllint
   vim
@@ -65,7 +63,17 @@ if [[ ! -d "${HOME}/.vim_runtime" ]]; then
   echo "Installing Ultimate Vim configuration..."
   git clone --depth=1 https://github.com/amix/vimrc.git ${HOME}/.vim_runtime
   sh ${HOME}/.vim_runtime/install_awesome_vimrc.sh
-  echo "set number" >> ${HOME}/.vim_runtime/my_configs.vim
+
+  if [[ ! -d "${HOME}/.vim/pack/themes/start/dracula" ]]; then
+    mkdir -p ~/.vim/pack/themes/start
+    git clone https://github.com/dracula/vim.git ${HOME}/.vim/pack/themes/start/dracula
+  fi
+
+  MY_CONFIG_VIM=${HOME}/.vim_runtime/my_configs.vim
+  echo "set number" >> ${MY_CONFIG_VIM}
+  echo 'packadd! dracula' >> ${MY_CONFIG_VIM}
+  echo 'syntax enable' >> ${MY_CONFIG_VIM}
+  echo 'colorscheme dracula' >> ${MY_CONFIG_VIM}  
 fi
 
 # Install Oh My Zsh
@@ -95,91 +103,21 @@ if ! grep -q "GNU" ${HOME_ZSHRC}; then
   echo 'PATH="$(brew --prefix)/opt/gnu-which/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
 fi
 
-# Initialize jEnv
-if ! grep -q "jEnv" ${HOME_ZSHRC}; then
-  # todo separate into zshrc and zprofile
-  echo "Added jEnv to ${HOME_ZSHRC}."
-  echo '' >> ${HOME_ZSHRC}
-  echo '# jEnv support' >> ${HOME_ZSHRC}
-  echo 'PATH="$HOME/.jenv/bin:$PATH"' >> ${HOME_ZSHRC}
-  PATH="$HOME/.jenv/bin:$PATH"
-  echo 'eval "$(jenv init -)"' >> ${HOME_ZSHRC}
-  eval "$(jenv init -)"
+# Install brew cask apps
+source templates/brew-casks.sh
 
-  jenv enable-plugin maven
-  jenv enable-plugin export
+# Install jEnv
+source templates/jenv.sh
 
-  echo "Please add JDKs, example..."
-  echo "  /usr/libexec/java_home -V"
-  echo "  jenv add <your_jdk_path>"
-  echo "Other helpful commands..."
-  echo "  jenv version"
-  echo "  jenv versions"
-  echo "  jenv global 16"
-  echo "  jenv local 1.8"
-  echo " Visit https://www.jenv.be"
-fi
+# Install Node Version Manager
+source templates/nvm.sh
 
-# https://github.com/mdogan/homebrew-zulu
-# Multi ENV https://docs.azul.com/core/zulu-openjdk/manage-multiple-zulu-versions/macos
-JDKs=(
-#  zulu-jdk7
-  zulu-jdk8
-#  zulu-jdk11
-#  zulu-jdk12
-#  zulu-jdk13
-#  zulu-jdk14
-#  zulu-jdk15
-#  zulu-jdk16
-  zulu-jdk17
-#  zulu-mc
-)
-echo "Installing Zulu OpenJDKs..."
-brew tap mdogan/zulu
-brew install --cask ${JDKs[@]}
-
-# Initialize Node Version Manager
-if ! grep -q "nvm" ${HOME_ZSHRC}; then
-  # create nvm dir
-  [ -d "$HOME/.nvm" ] || mkdir "$HOME/.nvm"
-  echo "Added nvm to ${HOME_ZSHRC}."
-  echo '' >> ${HOME_ZSHRC}
-  echo '# nvm support' >> ${HOME_ZSHRC}
-  # Set nvm workspace
-  echo 'NVM_DIR="$HOME/.nvm"' >> ${HOME_ZSHRC}
-  # Load nvm
-  echo '[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"' >> ${HOME_ZSHRC}
-  # Load nvm bash_completion
-  echo '[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"' >> ${HOME_ZSHRC}
-fi
-
-# List Cask Apps
-CASKS=(
-  # aldente
-  # alfred
-  appcleaner
-  # blender
-  cacher
-  discord
-  github
-  # imazing
-  iterm2
-  raycast
-  # rectangle
-  visual-studio-code
-  docker
-)
-
-echo "Installing cask apps..."
-brew install --cask ${CASKS[@]}
-
-# Initialize Node Version Manager
+# Append Aliases to .zshrc
 if ! grep -q "# Aliases" ${HOME_ZSHRC}; then
   echo "Added Aliases to ${HOME_ZSHRC}."
   echo '' >> ${HOME_ZSHRC}
   cat ./templates/aliases.sh >> ${HOME_ZSHRC}
 fi
 
-echo "Running macOS defaults.sh..."
 # Run templates/defaults.sh
 source templates/defaults.sh
