@@ -9,7 +9,7 @@ brew install nvm
 
 # add nvm to .zshrc
 if grep -q "# Node Version Manager" ${HOME_ZSHRC}; then
-  echo "Skipping nvm already added ${HOME_ZSHRC}."
+  echo "Skipping nvm already added to ${HOME_ZSHRC}."
   exit 0
 fi
 

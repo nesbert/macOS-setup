@@ -29,9 +29,9 @@ Below highlights some of the software installed and configured by this script.
 
 * [Homebrew](https://brew.sh) package manager for macOS
 * [Oh My Zsh](https://github.com/romkatv/powerlevel10k) with the Powerlevel10k theme
-* zshrc enhancements with [aliases](templates/aliases.sh) etc.
+* .zshrc enhancements with [aliases.sh](templates/aliases.sh) etc.
 * Enhances the Vim xp with "[The Ultimate vimrc](https://github.com/amix/vimrc)" and [Dracula](https://github.com/dracula/vim) theme
-* Updates system wide macOS [default preferences](templates/defaults.sh) see [dotfiles/.macos](https://github.com/mathiasbynens/dotfiles/blob/main/.macos)
+* Updates system wide macOS [preferences](templates/defaults.sh) see [dotfiles/.macos](https://github.com/mathiasbynens/dotfiles/blob/main/.macos)
 * Other applications & settings for development
 
 ### Applications, Tools & Utilities

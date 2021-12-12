@@ -9,9 +9,10 @@ if test $(which brew); then
   brew upgrade
 fi
 
+# Update The Ultimate vimrc
+./templates/vim.sh update
+
 if [[ -d "${HOME}/.oh-my-zsh" ]]; then
   echo "Updating Oh My ZSH..."
   "${HOME}/.oh-my-zsh"/tools/upgrade.sh
 fi
-
-source templates/paths.sh update

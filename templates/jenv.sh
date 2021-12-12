@@ -41,6 +41,7 @@ Visit https://www.jenv.be for more information.
 EOF
 
 if grep -q "# jEnv" ${HOME_ZSHRC}; then
+  echo "Skipping jEnv already added to ${HOME_ZSHRC}."
   exit 0
 fi
 
