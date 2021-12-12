@@ -37,6 +37,7 @@ fi
 # List of packages
 PACKAGES=(
   coreutils
+  colordiff
   findutils
   gawk
   gh
@@ -89,19 +90,8 @@ if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
   sed -i -e 's/ZSH_THEME="\(.*\)"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ${HOME_ZSHRC}
 fi
 
-# Initialize GNU overrides
-if ! grep -q "GNU" ${HOME_ZSHRC}; then
-  echo "Added GNU shell overrides to ${HOME_ZSHRC}"
-  echo '' >> ${HOME_ZSHRC}
-  echo '# GNU shell overrides' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/gnu-indent/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-  echo 'PATH="$(brew --prefix)/opt/gnu-which/libexec/gnubin:$PATH"' >> ${HOME_ZSHRC}
-fi
+# Add PATHs to .zshrc
+source templates/paths.sh
 
 # Install brew cask apps
 source templates/brew-casks.sh
@@ -113,11 +103,10 @@ source templates/jenv.sh
 source templates/nvm.sh
 
 # Append Aliases to .zshrc
-if ! grep -q "# Aliases" ${HOME_ZSHRC}; then
-  echo "Added Aliases to ${HOME_ZSHRC}."
-  echo '' >> ${HOME_ZSHRC}
-  cat ./templates/aliases.sh >> ${HOME_ZSHRC}
-fi
+source templates/aliases.sh
 
 # Run templates/defaults.sh
 source templates/defaults.sh
+
+# Reload zsh
+source ~/.zshrc

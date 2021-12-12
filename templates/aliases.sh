@@ -1,3 +1,16 @@
+#!/usr/bin/env bash
+HOME_ZSHRC="$HOME/.zshrc"
+
+if grep -q "# Aliases" ${HOME_ZSHRC}; then
+  echo "Skipping Aliases to ${HOME_ZSHRC}."
+  exit 0
+fi
+
+echo "Added Aliases to ${HOME_ZSHRC}."
+echo '' >> ${HOME_ZSHRC}
+
+# add/update aliases below comment
+cat << 'EOF' >> ${HOME_ZSHRC}
 ###############################################################################
 # Aliases                                                                     #
 ###############################################################################
@@ -29,3 +42,6 @@ alias bye='logout'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+
+alias zshconfig="code ~/.zshrc"
+alias ohmyzsh="code ~/.oh-my-zsh"

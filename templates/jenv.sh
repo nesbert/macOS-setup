@@ -4,33 +4,9 @@ HOME_ZSHRC="$HOME/.zshrc"
 echo "Installing jEnv (https://www.jenv.be) ..."
 brew install jenv
 
-# Initialize jEnv
-if ! grep -q "jEnv" ${HOME_ZSHRC}; then
-  # todo separate into zshrc and zprofile
-  echo "Added jEnv to ${HOME_ZSHRC}."
-  echo '' >> ${HOME_ZSHRC}
-  echo '# jEnv support' >> ${HOME_ZSHRC}
-  echo 'PATH="$HOME/.jenv/bin:$PATH"' >> ${HOME_ZSHRC}
-  PATH="$HOME/.jenv/bin:$PATH"
-  echo 'eval "$(jenv init -)"' >> ${HOME_ZSHRC}
-  eval "$(jenv init -)"
-
-  jenv enable-plugin maven
-  jenv enable-plugin export
-
-  echo "Please add JDKs, example..."
-  echo "  /usr/libexec/java_home -V"
-  echo "  jenv add <your_jdk_path>"
-  echo "Other helpful commands..."
-  echo "  jenv version"
-  echo "  jenv versions"
-  echo "  jenv global 16"
-  echo "  jenv local 1.8"
-  echo " Visit https://www.jenv.be"
-fi
-
+# uncomment desired versions of JDK
 # https://github.com/mdogan/homebrew-zulu
-# Multi ENV https://docs.azul.com/core/zulu-openjdk/manage-multiple-zulu-versions/macos
+# https://docs.azul.com/core/zulu-openjdk/manage-multiple-zulu-versions/macos
 JDKs=(
 #  zulu-jdk7
 #  zulu-jdk8
@@ -43,6 +19,38 @@ JDKs=(
   zulu-jdk17
 #  zulu-mc
 )
+
 echo "Installing Zulu OpenJDKs..."
 brew tap mdogan/zulu
 brew install --cask ${JDKs[@]}
+
+echo << EOF
+Please add JDKs, for example get list of install JDKs...
+
+  /usr/libexec/java_home -V
+  jenv add <your_jdk_path>
+
+Other helpful commands...
+
+  jenv version
+  jenv versions
+  jenv global 16
+  jenv local 1.8
+
+Visit https://www.jenv.be for more information.
+EOF
+
+if grep -q "# jEnv" ${HOME_ZSHRC}; then
+  exit 0
+fi
+
+# add jEnv to .zshrc
+echo "Added jEnv to ${HOME_ZSHRC}."
+echo '' >> ${HOME_ZSHRC}
+cat << 'EOF' >> ${HOME_ZSHRC}
+###############################################################################
+# jEnv (https://www.jenv.be)                                                  #
+###############################################################################
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
