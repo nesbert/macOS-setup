@@ -59,23 +59,8 @@ PACKAGES=(
 echo "Installing packages..."
 brew install ${PACKAGES[@]}
 
-# Install vimrc
-if [[ ! -d "${HOME}/.vim_runtime" ]]; then
-  echo "Installing Ultimate Vim configuration..."
-  git clone --depth=1 https://github.com/amix/vimrc.git ${HOME}/.vim_runtime
-  sh ${HOME}/.vim_runtime/install_awesome_vimrc.sh
-
-  if [[ ! -d "${HOME}/.vim/pack/themes/start/dracula" ]]; then
-    mkdir -p ~/.vim/pack/themes/start
-    git clone https://github.com/dracula/vim.git ${HOME}/.vim/pack/themes/start/dracula
-  fi
-
-  MY_CONFIG_VIM=${HOME}/.vim_runtime/my_configs.vim
-  echo "set number" >> ${MY_CONFIG_VIM}
-  echo 'packadd! dracula' >> ${MY_CONFIG_VIM}
-  echo 'syntax enable' >> ${MY_CONFIG_VIM}
-  echo 'colorscheme dracula' >> ${MY_CONFIG_VIM}  
-fi
+# Install The Ultimate vimrc
+./templates/vim.sh install
 
 # Install Oh My Zsh
 if [[ ! -d "${HOME}/.oh-my-zsh" ]]; then
@@ -91,22 +76,22 @@ if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
 fi
 
 # Add PATHs to .zshrc
-source templates/paths.sh
+./templates/paths.sh
 
 # Install brew cask apps
-source templates/brew-casks.sh
+./templates/brew-casks.sh
 
 # Install jEnv
-source templates/jenv.sh
+./templates/jenv.sh
 
 # Install Node Version Manager
-source templates/nvm.sh
+./templates/nvm.sh
 
 # Append Aliases to .zshrc
-source templates/aliases.sh
+./templates/aliases.sh
 
 # Run templates/defaults.sh
-source templates/defaults.sh
+./templates/defaults.sh
 
 # Reload zsh
 source ~/.zshrc

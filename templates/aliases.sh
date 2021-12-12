@@ -14,7 +14,7 @@ cat << 'EOF' >> ${HOME_ZSHRC}
 ###############################################################################
 # Aliases                                                                     #
 ###############################################################################
- 
+
 alias brew-check='brew update && brew outdated'
 alias brew-clean-doctor='brew cleanup && brew doctor'
 alias brew-update='brew-check && brew upgrade && brew-clean-doctor'
