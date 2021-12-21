@@ -21,6 +21,8 @@ case "$1" in
       exit 0
     fi
 
+    echo "Installing Dracula for Vim theme..."
+
     # create directory if it does not exist
     [ -d "${HOME}/.vim/pack/themes/start" ] || mkdir -p "${HOME}/.vim/pack/themes/start"
     git clone --depth=1 https://github.com/dracula/vim.git "${HOME_VIM_DRACULA}"
@@ -31,6 +33,7 @@ case "$1" in
     echo 'packadd! dracula' >> ${MY_CONFIG_VIM}
     echo 'syntax enable' >> ${MY_CONFIG_VIM}
     echo 'colorscheme dracula' >> ${MY_CONFIG_VIM}
+    echo "${MY_CONFIG_VIM} created."
     ;;
 
   update)

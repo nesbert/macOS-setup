@@ -95,7 +95,7 @@ defaults write com.apple.dock showhidden -bool true
 defaults write com.apple.dock show-recents -bool false
 
 echo "Dock: Adjust animation speed and reduce wait time."
-defaults write com.apple.dock autohide-delay -float 0 
+defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.2
 
 echo "Hot Corners: Mission Control, Desktop and Screensaver."
@@ -114,12 +114,12 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-echo "Keyboard: Disable press-and-hold for keys"
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+echo "Keyboard: Set press-and-hold for keys"
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 
 echo "Keyboard: Set a blazingly fast keyboard repeat rate."
-defaults write NSGlobalDomain KeyRepeat -int 0
-defaults write NSGlobalDomain InitialKeyRepeat -int 16
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 echo "Spaces: Don’t automatically rearrange Spaces based on most recent use."
 defaults write com.apple.dock mru-spaces -bool false
