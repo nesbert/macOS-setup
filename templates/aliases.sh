@@ -21,7 +21,7 @@ alias brew-update='brew-check && brew upgrade && brew-clean-doctor'
 alias brew-update-casks='brew-check && brew upgrade --cask && brew-clean-doctor'
 alias brew-update-formula='brew-check && brew upgrade --formula && brew-clean-doctor'
 
-alias my-ip="curl http://ipecho.net/plain; echo"
+alias my-ip="curl ifconfig.io"
 alias my-weather="curl wttr.in/Las+Vegas,+NV+89138"
 
 alias ..='cd ..'

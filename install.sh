@@ -40,6 +40,7 @@ PACKAGES=(
   coreutils
   colordiff
   findutils
+  fzf
   gawk
   gh
   git
@@ -48,12 +49,14 @@ PACKAGES=(
   gnu-tar
   gnu-indent
   gnu-which
+  jenv
   jq
+  nvm
   tree
-  yamllint
   vim
   watch
   wget
+  yamllint
   zsh
 )
 
@@ -76,20 +79,42 @@ if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
   sed -i -e 's/ZSH_THEME="\(.*\)"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ${HOME_ZSHRC}
 fi
 
+# Update plugins for Oh My Zsh
+if grep -q "plugins=(git)" ${HOME_ZSHRC}; then
+  # updated plugins
+  sed -i 's/^plugins=(git)/plugins=(\n  colorize\n  colored-man-pages\n  docker\n  docker-compose\n  fzf\n  git\n  jenv\n  macos\n  nvm\n)/' ${HOME_ZSHRC}
+  echo "Updated plugins=(...) in ${HOME_ZSHRC}."
+fi
+
+# Update settings for Oh My Zsh
+if grep -q "# CASE_SENSITIVE" ${HOME_ZSHRC}; then
+  sed -i 's/# CASE_SENSITIVE/CASE_SENSITIVE/' ${HOME_ZSHRC}
+fi
+
+# Add NVM settings for Oh My Zsh
+if ! grep -q "# nvm settings" ${HOME_ZSHRC}; then
+  # add comment
+  sed -i '/source $ZSH\/oh-my-zsh.sh/i # nvm settings for oh-my-zsh plugin\n' ${HOME_ZSHRC}
+  # nvm settings
+  sed -i '/# nvm settings/a NVM_LAZY=1' ${HOME_ZSHRC}
+  # update nvm brew location for M1
+  if [[ "${UNAME_MACHINE}" == "arm64" ]]; then
+    sed -i '/# nvm settings/a NVM_HOMEBREW=/opt/homebrew/opt/nvm' ${HOME_ZSHRC}
+  fi
+  echo "Added nvm to ${HOME_ZSHRC}."
+fi
+
 # Add PATHs to .zshrc
 ./templates/paths.sh
-
-# Install fzf
-./templates/fzf.sh
 
 # Install brew cask apps
 ./templates/brew-casks.sh
 
-# Install jEnv
-./templates/jenv.sh
+# Install JDKs
+./templates/jdks.sh
 
-# Install Node Version Manager
-./templates/nvm.sh
+# Create nvm dir
+[ -d "$HOME/.nvm" ] || mkdir "$HOME/.nvm"
 
 # Append Aliases to .zshrc
 ./templates/aliases.sh
