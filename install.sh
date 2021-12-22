@@ -36,6 +36,7 @@ fi
 
 # List of packages
 PACKAGES=(
+  bat
   coreutils
   colordiff
   findutils
@@ -77,6 +78,9 @@ fi
 
 # Add PATHs to .zshrc
 ./templates/paths.sh
+
+# Install fzf
+./templates/fzf.sh
 
 # Install brew cask apps
 ./templates/brew-casks.sh
