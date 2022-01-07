@@ -79,10 +79,22 @@ if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
   sed -i -e 's/ZSH_THEME="\(.*\)"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ${HOME_ZSHRC}
 fi
 
+# Install zsh-autosuggestions
+if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]]; then
+  echo "Installing zsh-autosuggestions..."
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
+
+# Install zsh-syntax-highlighting
+if [[ ! -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]]; then
+  echo "Installing zsh-syntax-highlighting..."
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
+
 # Update plugins for Oh My Zsh
 if grep -q "plugins=(git)" ${HOME_ZSHRC}; then
   # updated plugins
-  sed -i 's/^plugins=(git)/plugins=(\n  colorize\n  colored-man-pages\n  docker\n  docker-compose\n  fzf\n  git\n  jenv\n  macos\n  nvm\n)/' ${HOME_ZSHRC}
+  sed -i 's/^plugins=(git)/plugins=(\n  colorize\n  colored-man-pages\n  docker\n  docker-compose\n  fzf\n  git\n  jenv\n  macos\n  nvm\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n)/' ${HOME_ZSHRC}
   echo "Updated plugins=(...) in ${HOME_ZSHRC}."
 fi
 
