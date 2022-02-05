@@ -94,24 +94,25 @@ fi
 # Update plugins for Oh My Zsh
 if grep -q "plugins=(git)" ${HOME_ZSHRC}; then
   # updated plugins
-  sed -i 's/^plugins=(git)/plugins=(\n  colorize\n  colored-man-pages\n  docker\n  docker-compose\n  fzf\n  git\n  jenv\n  macos\n  nvm\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n)/' ${HOME_ZSHRC}
+  sed -i "" 's/^plugins=(git)/plugins=(\n  colorize\n  colored-man-pages\n  docker\n  docker-compose\n  fzf\n  git\n  jenv\n  macos\n  nvm\n  zsh-autosuggestions\n  zsh-syntax-highlighting\n)/' ${HOME_ZSHRC}
   echo "Updated plugins=(...) in ${HOME_ZSHRC}."
 fi
 
 # Update settings for Oh My Zsh
 if grep -q "# CASE_SENSITIVE" ${HOME_ZSHRC}; then
-  sed -i 's/# CASE_SENSITIVE/CASE_SENSITIVE/' ${HOME_ZSHRC}
+  sed -i "" 's/# CASE_SENSITIVE/CASE_SENSITIVE/' ${HOME_ZSHRC}
 fi
 
 # Add NVM settings for Oh My Zsh
 if ! grep -q "# nvm settings" ${HOME_ZSHRC}; then
   # add comment
-  sed -i '/source $ZSH\/oh-my-zsh.sh/i # nvm settings for oh-my-zsh plugin\n' ${HOME_ZSHRC}
+  sed -i -e '/source $ZSH\/oh-my-zsh.sh/i\'$'\n''# nvm settings for oh-my-zsh plugin'$'\n' ${HOME_ZSHRC}
   # nvm settings
-  sed -i '/# nvm settings/a NVM_LAZY=1' ${HOME_ZSHRC}
+  sed -i -e '/# nvm settings/a\'$'\n''NVM_LAZY=1'$'\n' ${HOME_ZSHRC}
   # update nvm brew location for M1
   if [[ "${UNAME_MACHINE}" == "arm64" ]]; then
-    sed -i '/# nvm settings/a NVM_HOMEBREW=/opt/homebrew/opt/nvm' ${HOME_ZSHRC}
+    # sed -i '/# nvm settings/a NVM_HOMEBREW=/opt/homebrew/opt/nvm' ${HOME_ZSHRC}
+    sed -i -e '/# nvm settings/a\'$'\n''NVM_HOMEBREW=/opt/homebrew/opt/nvm'$'\n' ${HOME_ZSHRC}
   fi
   echo "Added nvm to ${HOME_ZSHRC}."
 fi
