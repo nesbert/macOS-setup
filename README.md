@@ -19,7 +19,20 @@ softwareupdate --install-rosetta
 # first run install
 ./install.sh
 
-# update
+# second run your desired Caveat commands...
+/opt/homebrew/opt/fzf/install
+
+# third run install again
+./install.sh
+
+# forth configure prompt via Powerlevel10k wizard
+p10k configure # if not prompted
+```
+
+## Update Software
+
+```sh
+# update Homebrew, Oh My ZSH, certain ZSH plugins...
 ./update.sh
 ```
 

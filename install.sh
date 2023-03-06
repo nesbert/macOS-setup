@@ -103,20 +103,6 @@ if grep -q "# CASE_SENSITIVE" ${HOME_ZSHRC}; then
   sed -i "" 's/# CASE_SENSITIVE/CASE_SENSITIVE/' ${HOME_ZSHRC}
 fi
 
-# Add NVM settings for Oh My Zsh
-if ! grep -q "# nvm settings" ${HOME_ZSHRC}; then
-  # add comment
-  sed -i -e '/source $ZSH\/oh-my-zsh.sh/i\'$'\n''# nvm settings for oh-my-zsh plugin'$'\n' ${HOME_ZSHRC}
-  # nvm settings
-  sed -i -e '/# nvm settings/a\'$'\n''NVM_LAZY=1'$'\n' ${HOME_ZSHRC}
-  # update nvm brew location for M1
-  if [[ "${UNAME_MACHINE}" == "arm64" ]]; then
-    # sed -i '/# nvm settings/a NVM_HOMEBREW=/opt/homebrew/opt/nvm' ${HOME_ZSHRC}
-    sed -i -e '/# nvm settings/a\'$'\n''NVM_HOMEBREW=/opt/homebrew/opt/nvm'$'\n' ${HOME_ZSHRC}
-  fi
-  echo "Added nvm to ${HOME_ZSHRC}."
-fi
-
 # Add PATHs to .zshrc
 ./templates/paths.sh
 
