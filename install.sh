@@ -52,6 +52,7 @@ PACKAGES=(
   jenv
   jq
   nvm
+  pyenv
   tree
   vim
   watch
