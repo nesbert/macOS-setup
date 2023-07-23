@@ -49,4 +49,7 @@ alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 
 alias restart-macos="sudo shutdown -r now"
-alias clean-python="find . -type d -name __pycache__ -exec rm -r {} \+; find . -type d -name '*.egg-info' -exec rm -r {} \+"
+alias clean-python="rm -rf .pytest_cache dist htmlcov venv; \
+                    find . -type f -name '.coverage' -delete; \
+                    find . -type d -name '__pycache__' -exec rm -rf {} +; \
+                    find . -type d -name '*.egg-info' -exec rm -rf {} +"

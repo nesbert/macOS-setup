@@ -104,8 +104,8 @@ if grep -q "# CASE_SENSITIVE" ${HOME_ZSHRC}; then
   sed -i "" 's/# CASE_SENSITIVE/CASE_SENSITIVE/' ${HOME_ZSHRC}
 fi
 
-# Add PATHs to .zshrc
-./templates/paths.sh
+# Add PATHs section to .zshrc
+./templates/zshrc-paths.sh
 
 # Install brew cask apps
 ./templates/brew-casks.sh
@@ -116,8 +116,11 @@ fi
 # Create nvm dir
 [ -d "$HOME/.nvm" ] || mkdir "$HOME/.nvm"
 
-# Append Aliases to .zshrc
-./templates/aliases.sh
+# Append Aliases section to .zshrc
+./templates/zshrc-aliases.sh
+
+# Append Misc section to .zshrc
+./templates/zshrc-misc.sh
 
 # Run templates/defaults.sh
 ./templates/defaults.sh
