@@ -6,6 +6,7 @@ IFS=$'\n\t'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 SCRIPTS_DIR="${REPO_ROOT}/scripts"
+HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 
 # local vars
 MACOS_SETUP_START_TIME=$(date +%Y%m%d%H%M%S)
@@ -14,7 +15,7 @@ UNAME_MACHINE="$(/usr/bin/uname -m)"
 DOTFILES_DIR="${HOME}/Code/github.com/nesbert/macOS-dotfiles"
 DOTFILES_REPO_URL="${DOTFILES_REPO_URL:-https://github.com/nesbert/macOS-dotfiles.git}"
 
-run_template() {
+run_script() {
   local script_name="$1"
   shift
 
@@ -87,21 +88,24 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 # Install brew & cask apps
-run_template brew.sh
-run_template brew-casks.sh
-run_template brew-jdks.sh
+run_script brew.sh
+run_script brew-casks.sh
+run_script brew-jdks.sh
 
 # Install NodeJS with nvm
-run_template nvm-nodejs.sh
+run_script nvm-nodejs.sh
 
 # Install The Ultimate vimrc
-run_template vim-settings.sh install
+run_script vim-settings.sh install
 
 # Create workspace directories
 mkdir -p "${HOME}/Code/github.com/nesbert"
 
-# Setup macOS system settings
-# run_template macOS-system-settings.sh
+# Setup DX-focused macOS system settings
+run_script macOS-system-settings.sh
+
+# Setup personal macOS preferences
+# run_script macOS-personal-settings.sh
 
 # Clone dotfiles repo and symlink .zshrc and .config
 if [ -d "$DOTFILES_DIR/.git" ]; then

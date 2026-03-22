@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 HOME_VIM_RUNTIME="${HOME}/.vim_runtime"
 HOME_VIM_THEME_ROOT="${HOME}/.vim/pack/themes/start"
 HOME_VIM_NORD="${HOME_VIM_THEME_ROOT}/nord-vim"

@@ -72,9 +72,12 @@ Below highlights some of the software installed and configured by this script.
 - Vim enhanced with [The Ultimate vimrc](https://github.com/amix/vimrc) and the [Nord](https://github.com/arcticicestudio/nord-vim) theme
 - Other applications and settings for development
 
-`scripts/macOS-system-settings.sh` exists for Finder, Dock, keyboard, and
-display preferences, but it is currently commented out in
-[`bin/install.sh`](bin/install.sh).
+Optional macOS defaults are split into two scripts and both are currently
+commented out in [`bin/install.sh`](bin/install.sh):
+
+- `scripts/macOS-system-settings.sh` for broadly useful DX defaults
+- `scripts/macOS-personal-settings.sh` for personal UI, hot corner, input, and
+  display preferences
 
 ### Applications, Tools & Utilities
 

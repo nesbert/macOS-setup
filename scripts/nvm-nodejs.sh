@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 [ -d "$HOME/.nvm" ] || mkdir "$HOME/.nvm"
 
 export NVM_DIR="$HOME/.nvm"

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 HOME_ZSHRC="$HOME/.zshrc"
 
 echo "Installing Zulu OpenJDKs with Homebrew..."
