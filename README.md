@@ -44,7 +44,7 @@ If you want to use a fork or alternate remote for dotfiles, set
 `DOTFILES_REPO_URL` before running install:
 
 ```sh
-DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./macOS-setup install
+DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./bin/macOS-setup install
 ```
 
 ## Update Software
@@ -79,12 +79,12 @@ Optional macOS defaults are split into two scripts:
   display preferences
 
 The DX-focused settings script is currently run by
-[`bin/install.sh`](bin/install.sh), while the personal settings script stays
+[`scripts/macOS-install.sh`](scripts/macOS-install.sh), while the personal settings script stays
 opt-in.
 
 ```sh
-./macOS-setup system-settings
-./macOS-setup personal-settings
+./bin/macOS-setup system-settings
+./bin/macOS-setup personal-settings
 ```
 
 ### Applications, Tools & Utilities
