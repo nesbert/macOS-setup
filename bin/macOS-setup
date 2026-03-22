@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BIN_DIR="${SCRIPT_DIR}/bin"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  ./macOS-setup install
+  ./macOS-setup update
+  ./macOS-setup system-settings
+  ./macOS-setup personal-settings
+  ./macOS-setup help
+
+Commands:
+  install            Bootstrap Homebrew, packages, dotfiles, and DX defaults
+  update             Update Homebrew packages/casks and refresh vim config
+  system-settings    Apply DX-focused macOS system settings
+  personal-settings  Apply personal macOS preferences
+  help               Show this help message
+EOF
+}
+
+main() {
+  local command="${1:-help}"
+
+  case "${command}" in
+    install)
+      exec "${BIN_DIR}/install.sh"
+      ;;
+    update)
+      exec "${BIN_DIR}/update.sh"
+      ;;
+    system-settings)
+      exec "${SCRIPT_DIR}/scripts/macOS-system-settings.sh"
+      ;;
+    personal-settings)
+      exec "${SCRIPT_DIR}/scripts/macOS-personal-settings.sh"
+      ;;
+    help|-h|--help)
+      usage
+      ;;
+    *)
+      echo "Unknown command: ${command}" >&2
+      echo >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

@@ -24,14 +24,14 @@ softwareupdate --install-rosetta
 ## Installation
 
 ```sh
-# bootstrap the machine, install packages, and link dotfiles
-./bin/install.sh
+# bootstrap the machine, install packages, dotfiles, and DX defaults
+./bin/macOS-setup install
 
 # optional follow-up for fzf keybindings/completions
 /opt/homebrew/opt/fzf/install
 ```
 
-`bin/install.sh` will:
+`./bin/macOS-setup install` will:
 
 - install Homebrew if needed
 - install CLI packages and cask apps
@@ -44,14 +44,14 @@ If you want to use a fork or alternate remote for dotfiles, set
 `DOTFILES_REPO_URL` before running install:
 
 ```sh
-DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./bin/install.sh
+DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./macOS-setup install
 ```
 
 ## Update Software
 
 ```sh
 # update Homebrew packages/casks and refresh vim config
-./bin/update.sh
+./bin/macOS-setup update
 ```
 
 ## What does it install?
@@ -72,12 +72,20 @@ Below highlights some of the software installed and configured by this script.
 - Vim enhanced with [The Ultimate vimrc](https://github.com/amix/vimrc) and the [Nord](https://github.com/arcticicestudio/nord-vim) theme
 - Other applications and settings for development
 
-Optional macOS defaults are split into two scripts and both are currently
-commented out in [`bin/install.sh`](bin/install.sh):
+Optional macOS defaults are split into two scripts:
 
 - `scripts/macOS-system-settings.sh` for broadly useful DX defaults
 - `scripts/macOS-personal-settings.sh` for personal UI, hot corner, input, and
   display preferences
+
+The DX-focused settings script is currently run by
+[`bin/install.sh`](bin/install.sh), while the personal settings script stays
+opt-in.
+
+```sh
+./macOS-setup system-settings
+./macOS-setup personal-settings
+```
 
 ### Applications, Tools & Utilities
 
