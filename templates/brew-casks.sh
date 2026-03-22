@@ -2,20 +2,27 @@
 
 # List Cask Apps
 CASKS=(
-  # aldente
-  # alfred
+  aldente
   appcleaner
+  # alfred
+  arc
   # blender
-  cacher
+  bruno
+  chatgpt
+  claude
+  codex
+  codex-app
+  copilot-cli
   discord
-  github
-  # imazing
-  iterm2
-  raycast
-  # rectangle
-  visual-studio-code
   docker
+  font-go-mono-nerd-font
+  font-jetbrains-mono-nerd-font
+  font-meslo-lg-nerd-font
+  ghostty
+  github
+  sf-symbols
+  visual-studio-code
 )
 
-echo "Installing cask apps..."
+echo "Installing `brew cask` apps..."
 brew install --cask ${CASKS[@]}
