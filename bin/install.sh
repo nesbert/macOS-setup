@@ -5,7 +5,7 @@ IFS=$'\n\t'
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-TEMPLATES_DIR="${REPO_ROOT}/templates"
+SCRIPTS_DIR="${REPO_ROOT}/scripts"
 
 # local vars
 MACOS_SETUP_START_TIME=$(date +%Y%m%d%H%M%S)
@@ -15,10 +15,10 @@ DOTFILES_DIR="${HOME}/Code/github.com/nesbert/macOS-dotfiles"
 DOTFILES_REPO_URL="${DOTFILES_REPO_URL:-https://github.com/nesbert/macOS-dotfiles.git}"
 
 run_template() {
-  local template_name="$1"
+  local script_name="$1"
   shift
 
-  "${TEMPLATES_DIR}/${template_name}" "$@"
+  "${SCRIPTS_DIR}/${script_name}" "$@"
 }
 
 resolve_existing_path() {

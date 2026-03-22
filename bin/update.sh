@@ -5,7 +5,7 @@ IFS=$'\n\t'
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-TEMPLATES_DIR="${REPO_ROOT}/templates"
+SCRIPTS_DIR="${REPO_ROOT}/scripts"
 
 if command -v brew >/dev/null 2>&1; then
   echo "Updating Homebrew..."
@@ -14,4 +14,4 @@ if command -v brew >/dev/null 2>&1; then
 fi
 
 # Update The Ultimate vimrc
-"${TEMPLATES_DIR}/vim-settings.sh" update
+"${SCRIPTS_DIR}/vim-settings.sh" update

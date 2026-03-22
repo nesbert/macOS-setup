@@ -70,9 +70,9 @@ Below highlights some of the software installed and configured by this script.
 - GNU command-line tools such as `coreutils`, `findutils`, `gnu-sed`, and `grep`
 - Dotfiles bootstrapped from [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles)
 - Vim enhanced with [The Ultimate vimrc](https://github.com/amix/vimrc) and the [Nord](https://github.com/arcticicestudio/nord-vim) theme
-- Other applications & settings for development
+- Other applications and settings for development
 
-`templates/macOS-system-settings.sh` exists for Finder, Dock, keyboard, and
+`scripts/macOS-system-settings.sh` exists for Finder, Dock, keyboard, and
 display preferences, but it is currently commented out in
 [`bin/install.sh`](bin/install.sh).
 
