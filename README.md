@@ -21,6 +21,12 @@ xcode-select --install
 softwareupdate --install-rosetta
 ```
 
+3. Agree to the Xcode license
+
+```sh
+sudo xcodebuild -license accept
+```
+
 ## Installation
 
 ```sh
