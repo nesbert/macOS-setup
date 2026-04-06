@@ -1,28 +1,17 @@
 #!/usr/bin/env bash
 
-# List Cask Apps
-CASKS=(
-  aldente
-  appcleaner
-  # alfred
-  arc
-  # blender
-  bruno
-  chatgpt
-  claude
-  codex
-  codex-app
-  copilot-cli
-  discord
-  docker
-  font-go-mono-nerd-font
-  font-jetbrains-mono-nerd-font
-  font-meslo-lg-nerd-font
-  ghostty
-  github
-  sf-symbols
-  visual-studio-code
-)
+echo "Installing \`brew install --cask\` apps..."
 
-echo "Installing `brew cask` apps..."
-brew install --cask ${CASKS[@]}
+brew install --cask aldente
+brew install --cask appcleaner
+brew install --cask arc
+brew install --cask bruno
+brew install --cask chatgpt
+brew install --cask codex-app
+brew install --cask copilot-cli
+brew install --cask discord
+brew install --cask docker
+brew install --cask ghostty
+brew install --cask github
+brew install --cask obsidian
+brew install --cask visual-studio-code

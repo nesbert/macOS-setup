@@ -1,42 +1,42 @@
-# List of packages
-PACKAGES=(
-  bat
-  claude
-  codex
-  colordiff
-  copilot-cli
-  coreutils
-  fastfetch
-  findutils
-  fzf
-  gawk
-  gh
-  git
-  grep
-  gemini-cli
-  gnu-indent
-  gnu-sed
-  gnu-tar
-  gnu-which
-  jenv
-  jq
-  nvm
-  pyenv
-  starship
-  wget
-  tree
-  vim
-  watch
-  yamllint
-  zsh
-  zsh-autocomplete
-  zsh-autosuggestions
-  zsh-fast-syntax-highlighting
-  zsh-git-prompt
-  zsh-history-substring-search
-  zsh-syntax-highlighting
-  zsh-you-should-use
-)
+echo "Installing \`brew install\` packages..."
 
-echo "Installing `brew` packages..."
-brew install ${PACKAGES[@]}
+brew install bat
+brew install claude
+brew install codex
+brew install colordiff
+brew install copilot-cli
+brew install coreutils
+brew install fastfetch
+brew install findutils
+brew install font-go-mono-nerd-font
+brew install font-jetbrains-mono-nerd-font
+brew install font-meslo-lg-nerd-font
+brew install fzf
+brew install gawk
+brew install gh
+brew install git
+brew install grep
+brew install gemini-cli
+brew install gnu-indent
+brew install gnu-sed
+brew install gnu-tar
+brew install gnu-which
+brew install jenv
+brew install jq
+brew install nvm
+brew install pyenv
+brew install starship
+brew install sf-symbols
+brew install tree
+brew install vim
+brew install watch
+brew install wget
+brew install yamllint
+brew install zsh
+brew install zsh-autocomplete
+brew install zsh-autosuggestions
+brew install zsh-fast-syntax-highlighting
+brew install zsh-git-prompt
+brew install zsh-history-substring-search
+brew install zsh-syntax-highlighting
+brew install zsh-you-should-use

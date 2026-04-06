@@ -6,17 +6,14 @@ echo "Installing Zulu OpenJDKs with Homebrew..."
 
 # Uncomment desired versions of JDK casks
 # https://formulae.brew.sh/cask/zulu@21
-JDKs=(
-#  zulu@8
-#  zulu@11
-#  zulu@13
-#  zulu@15
-#  zulu@17
-#  zulu@19
-  zulu@21
-)
 
-brew install ${JDKs[@]}
+# brew install zulu@8
+# brew install zulu@11
+# brew install zulu@13
+# brew install zulu@15
+# brew install zulu@17
+# brew install zulu@19
+brew install zulu@21
 
 echo << EOF
 Please add JDKs using jEnv, for example get list of install JDKs...
