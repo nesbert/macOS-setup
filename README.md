@@ -54,6 +54,20 @@ DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./bin/macOS-setup 
 DOTFILES_DIR=$HOME/Code/github.com/<you>/macOS-dotfiles ./bin/macOS-setup install
 ```
 
+## Reusing This Setup
+
+If someone else wants to use these repos on their own Mac, the clean path is:
+
+1. Fork [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles/).
+2. Copy the `*.example` files in [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles/) to their ignored `*.local`
+   counterparts.
+3. Configure their SSH keys and Git identities using [SSH Keys](/Users/nesbert/Code/github.com/nesbert/macOS-setup/docs/ssh-keys.md) and [Multiple Git Accounts](/Users/nesbert/Code/github.com/nesbert/macOS-setup/docs/multiple-git-accounts.md).
+4. Optionally create `config.local/` files in [macOS-setup](https://github.com/nesbert/macOS-setup/) to trim or expand
+   the Homebrew package list without changing the shared defaults.
+
+That keeps the automation reusable while making the machine-specific identity
+choices explicit.
+
 ## Local Package Selection
 
 This repo ships with default package lists in [`config/`](config), but you can
