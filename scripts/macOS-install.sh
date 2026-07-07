@@ -12,14 +12,40 @@ HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 MACOS_SETUP_START_TIME=$(date +%Y%m%d%H%M%S)
 HOME_ZPROFILE="$HOME/.zprofile"
 UNAME_MACHINE="$(/usr/bin/uname -m)"
-DOTFILES_DIR="${HOME}/Code/github.com/nesbert/macOS-dotfiles"
+DOTFILES_DIR="${DOTFILES_DIR:-${HOME}/Code/github.com/nesbert/macOS-dotfiles}"
 DOTFILES_REPO_URL="${DOTFILES_REPO_URL:-https://github.com/nesbert/macOS-dotfiles.git}"
+LOCAL_CONFIG_DIR="${LOCAL_CONFIG_DIR:-${REPO_ROOT}/config.local}"
+BREW_FORMULAE_FILE="${BREW_FORMULAE_FILE:-${LOCAL_CONFIG_DIR}/brew-formulae.txt}"
+BREW_CASKS_FILE="${BREW_CASKS_FILE:-${LOCAL_CONFIG_DIR}/brew-casks.txt}"
+BREW_JDKS_FILE="${BREW_JDKS_FILE:-${LOCAL_CONFIG_DIR}/brew-jdks.txt}"
 
 run_script() {
   local script_name="$1"
   shift
 
   "${SCRIPTS_DIR}/${script_name}" "$@"
+}
+
+setup_dotfiles_repo() {
+  if [[ -d "${DOTFILES_DIR}/.git" ]]; then
+    echo "Updating dotfiles repo in ${DOTFILES_DIR}..."
+    git -C "${DOTFILES_DIR}" pull --ff-only
+  else
+    echo "Cloning dotfiles repo from ${DOTFILES_REPO_URL}..."
+    mkdir -p "$(dirname "${DOTFILES_DIR}")"
+    git clone "${DOTFILES_REPO_URL}" "${DOTFILES_DIR}"
+  fi
+}
+
+use_default_if_missing() {
+  local candidate_path="$1"
+  local default_path="$2"
+
+  if [[ -f "${candidate_path}" ]]; then
+    printf '%s\n' "${candidate_path}"
+  else
+    printf '%s\n' "${default_path}"
+  fi
 }
 
 resolve_existing_path() {
@@ -87,8 +113,15 @@ if ! command -v brew >/dev/null 2>&1; then
   echo 'FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' >> "${HOME_ZPROFILE}"
 fi
 
+# Clone dotfiles repo early so package selections can come from dotfiles.
+setup_dotfiles_repo
+
+BREW_FORMULAE_FILE="$(use_default_if_missing "${BREW_FORMULAE_FILE}" "${REPO_ROOT}/config/brew-formulae.txt")"
+BREW_CASKS_FILE="$(use_default_if_missing "${BREW_CASKS_FILE}" "${REPO_ROOT}/config/brew-casks.txt")"
+BREW_JDKS_FILE="$(use_default_if_missing "${BREW_JDKS_FILE}" "${REPO_ROOT}/config/brew-jdks.txt")"
+
 # Install brew & cask apps
-run_script brew.sh
+run_script brew-formulae.sh
 run_script brew-casks.sh
 run_script brew-jdks.sh
 
@@ -98,23 +131,11 @@ run_script nvm-nodejs.sh
 # Install The Ultimate vimrc
 run_script vim-settings.sh install
 
-# Create workspace directories
-mkdir -p "${HOME}/Code/github.com/nesbert"
-
 # Setup DX-focused macOS system settings
 run_script macOS-system-settings.sh
 
 # Setup personal macOS preferences
 # run_script macOS-personal-settings.sh
-
-# Clone dotfiles repo and symlink .zshrc and .config
-if [ -d "$DOTFILES_DIR/.git" ]; then
-  echo "Updating dotfiles repo in ${DOTFILES_DIR}..."
-  git -C "$DOTFILES_DIR" pull --ff-only
-else
-  echo "Cloning dotfiles repo from ${DOTFILES_REPO_URL}..."
-  git clone "$DOTFILES_REPO_URL" "$DOTFILES_DIR"
-fi
 
 backup_and_link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 backup_and_link "$DOTFILES_DIR/.config" "$HOME/.config"

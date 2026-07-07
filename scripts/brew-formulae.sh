@@ -8,6 +8,6 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 # shellcheck source=./lib/brew-package-list.sh
 source "${SCRIPT_DIR}/lib/brew-package-list.sh"
 
-BREW_CASKS_FILE="${BREW_CASKS_FILE:-${REPO_ROOT}/config/brew-casks.txt}"
+BREW_FORMULAE_FILE="${BREW_FORMULAE_FILE:-${REPO_ROOT}/config/brew-formulae.txt}"
 
-install_brew_packages_from_list "Homebrew casks" "--cask" "${BREW_CASKS_FILE}"
+install_brew_packages_from_list "brew formulae" "" "${BREW_FORMULAE_FILE}"

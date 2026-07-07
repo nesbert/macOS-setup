@@ -1,0 +1,14 @@
+# One Homebrew cask token per line.
+aldente
+appcleaner
+arc
+bruno
+chatgpt
+codex-app
+copilot-cli
+discord
+docker
+ghostty
+github
+obsidian
+visual-studio-code

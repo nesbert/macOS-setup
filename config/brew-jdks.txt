@@ -1,0 +1,2 @@
+# One Homebrew JDK cask token per line.
+zulu@21

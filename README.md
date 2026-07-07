@@ -40,17 +40,57 @@ sudo xcodebuild -license accept
 `./bin/macOS-setup install` will:
 
 - install Homebrew if needed
+- clone or update the configured dotfiles repo
 - install CLI packages and cask apps
 - install Ghostty, Starship, fastfetch, and related shell tooling
-- clone or update `https://github.com/nesbert/macOS-dotfiles`
 - back up any existing `~/.zshrc` and `~/.config`
 - symlink `~/.zshrc` and `~/.config` from the dotfiles repo
 
-If you want to use a fork or alternate remote for dotfiles, set
-`DOTFILES_REPO_URL` before running install:
+If you want to use a fork, alternate remote, or alternate clone path for
+dotfiles, set these before running install:
 
 ```sh
 DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./bin/macOS-setup install
+DOTFILES_DIR=$HOME/Code/github.com/<you>/macOS-dotfiles ./bin/macOS-setup install
+```
+
+## Local Package Selection
+
+This repo ships with default package lists in [`config/`](config), but you can
+override them locally with untracked files in `config.local/`.
+
+The installer looks for these files in `config.local/` first:
+
+- `config.local/brew-formulae.txt`
+- `config.local/brew-casks.txt`
+- `config.local/brew-jdks.txt`
+
+If those files are missing, it falls back to this repo’s defaults in `config/`.
+
+`config.local/` is ignored by Git, so each person can keep a machine-specific
+or user-specific package selection without changing the shared open source repo.
+
+The format is intentionally simple: one Homebrew token per line, with blank
+lines and `# comments` allowed.
+
+```txt
+# config.local/brew-casks.txt
+ghostty
+visual-studio-code
+docker
+chatgpt
+```
+
+That keeps the shared defaults in version control while giving each user a very
+simple override point.
+
+You can also point directly at custom files with environment variables:
+
+```sh
+BREW_FORMULAE_FILE=/path/to/brew-formulae.txt \
+BREW_CASKS_FILE=/path/to/brew-casks.txt \
+BREW_JDKS_FILE=/path/to/brew-jdks.txt \
+./bin/macOS-setup install
 ```
 
 ## Update Software

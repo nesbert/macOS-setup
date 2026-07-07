@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
-HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
-HOME_ZSHRC="$HOME/.zshrc"
+set -euo pipefail
+IFS=$'\n\t'
 
-echo "Installing Zulu OpenJDKs with Homebrew..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-# Uncomment desired versions of JDK casks
-# https://formulae.brew.sh/cask/zulu@21
+# shellcheck source=./lib/brew-package-list.sh
+source "${SCRIPT_DIR}/lib/brew-package-list.sh"
 
-# brew install zulu@8
-# brew install zulu@11
-# brew install zulu@13
-# brew install zulu@15
-# brew install zulu@17
-# brew install zulu@19
-brew install zulu@21
+BREW_JDKS_FILE="${BREW_JDKS_FILE:-${REPO_ROOT}/config/brew-jdks.txt}"
+
+install_brew_packages_from_list "Homebrew JDK casks" "--cask" "${BREW_JDKS_FILE}"
 
 echo << EOF
 Please add JDKs using jEnv, for example get list of install JDKs...
