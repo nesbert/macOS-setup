@@ -37,6 +37,20 @@ sudo xcodebuild -license accept
 /opt/homebrew/opt/fzf/install
 ```
 
+If a cask install fails because the app already exists on the machine, rerun
+install with an explicit conflict policy:
+
+```sh
+# default: stop on the first cask conflict or other cask install failure
+BREW_CASK_CONFLICT_POLICY=fail ./bin/macOS-setup install
+
+# overwrite existing app files for casks
+BREW_CASK_CONFLICT_POLICY=force ./bin/macOS-setup install
+
+# continue past cask install failures and print a summary at the end
+BREW_CASK_CONFLICT_POLICY=skip ./bin/macOS-setup install
+```
+
 `./bin/macOS-setup install` will:
 
 - install Homebrew if needed
@@ -105,6 +119,23 @@ BREW_FORMULAE_FILE=/path/to/brew-formulae.txt \
 BREW_CASKS_FILE=/path/to/brew-casks.txt \
 BREW_JDKS_FILE=/path/to/brew-jdks.txt \
 ./bin/macOS-setup install
+```
+
+## Cask Conflict Policy
+
+The installer now supports `BREW_CASK_CONFLICT_POLICY` for Homebrew casks:
+
+- `fail` is the default. Abort on the first cask install failure.
+- `force` reruns cask installs with Homebrew's `--force` flag, which can
+  overwrite existing app files.
+- `skip` treats cask install failures as non-fatal, continues with the rest of
+  the setup, and prints the skipped casks at the end.
+
+Examples:
+
+```sh
+BREW_CASK_CONFLICT_POLICY=force ./bin/macOS-setup install
+BREW_CASK_CONFLICT_POLICY=skip ./bin/macOS-setup install
 ```
 
 ## Update Software
