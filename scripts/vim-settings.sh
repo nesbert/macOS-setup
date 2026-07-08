@@ -11,6 +11,16 @@ append_if_missing() {
   grep -qxF "$line" "${MY_CONFIG_VIM}" 2>/dev/null || printf '%s\n' "$line" >> "${MY_CONFIG_VIM}"
 }
 
+apply_custom_config() {
+  append_if_missing "set number"
+  append_if_missing "packadd! nord-vim"
+  append_if_missing "\" Avoid E28 warnings from Vim's Java syntax Markdown-in-Javadoc support."
+  append_if_missing "let g:java_ignore_markdown = 1"
+  append_if_missing "syntax enable"
+  append_if_missing "colorscheme nord"
+  echo "${MY_CONFIG_VIM} updated."
+}
+
 case "$1" in
   install)
     echo "Installing Ultimate Vim configuration..."
@@ -30,11 +40,7 @@ case "$1" in
       git clone --depth=1 https://github.com/arcticicestudio/nord-vim.git "${HOME_VIM_NORD}"
     fi
 
-    append_if_missing "set number"
-    append_if_missing "packadd! nord-vim"
-    append_if_missing "syntax enable"
-    append_if_missing "colorscheme nord"
-    echo "${MY_CONFIG_VIM} updated."
+    apply_custom_config
     ;;
 
   update)
@@ -62,6 +68,7 @@ case "$1" in
 
     [ -d "${HOME_VIM_THEME_ROOT}" ] || mkdir -p "${HOME_VIM_THEME_ROOT}"
     git clone --depth=1 https://github.com/arcticicestudio/nord-vim.git "${HOME_VIM_NORD}"
+    apply_custom_config
     ;;
 
   remove)
