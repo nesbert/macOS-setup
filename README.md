@@ -7,33 +7,108 @@ This repository handles machine setup, package installation, and update
 automation. Terminal, prompt, and app configuration live in the companion
 repository [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles).
 
-## Prereq
+## Quick start
 
-1. Install Command Line Tools (CLT) for Xcode
+If this is your first time setting up a Mac with this repo, follow this order:
+
+1. Complete the prerequisites above.
+2. Configure SSH and Git signing keys.
+3. Clone this repo and the companion dotfiles repo.
+4. Optionally customize the Homebrew package list.
+5. Run the installer.
+
+### Prerequisites
+
+Before you run the installer, make sure the following are ready:
+
+### Install Command Line Tools (CLT) for Xcode
 
 ```sh
 xcode-select --install
 ```
 
-2. Install Rosetta 2 for binaries that are still Darwin/AMD64 (Docker builds, etc)
+### Optional: Install Rosetta 2 if you need Intel-based binaries such as some Docker builds
 
 ```sh
 softwareupdate --install-rosetta
 ```
 
-3. Agree to the Xcode license
+### Optional: Agree to the Xcode license
 
 ```sh
 sudo xcodebuild -license accept
 ```
 
+### Set up SSH and Git signing
+
+Use the official GitHub documentation for full details, then add a minimal SSH config for the default paths:
+
+```txt
+# ~/.ssh/config
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+Create a new authentication key:
+
+```sh
+ssh-keygen -t ed25519 -C "your-email@example.com"
+touch ~/.ssh/config
+open ~/.ssh/config
+
+eval "$(ssh-agent -s)"
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+
+pbcopy < ~/.ssh/id_ed25519.pub
+open https://github.com/settings/ssh/new
+```
+
+If you also want commit signing, configure your signing key:
+
+```sh
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+git config --global commit.gpgsign true
+```
+
+### Clone the repositories
+
+```sh
+mkdir -p Code/github.com/nesbert
+cd Code/github.com/nesbert
+git clone git@github.com:nesbert/macOS-setup.git
+git clone git@github.com:nesbert/macOS-dotfiles.git
+```
+
+### Optional: customize the package list
+
+```sh
+cd macOS-setup
+cp -Rfv config config.local
+
+# Edit the package lists if you want a different setup
+vi config.local/brew-casks.txt
+vi config.local/brew-formulae.txt
+vi config.local/brew-jdks.txt
+```
+
 ## Installation
+
+You may be prompted for your password several times during setup.
 
 ```sh
 # bootstrap the machine, install packages, dotfiles, and DX defaults
 ./bin/macOS-setup install
 
-# optional follow-up for fzf keybindings/completions
+# Optional: apply the DX-focused system settings
+./bin/macOS-setup system-settings
+
+# Optional: apply personal UI and input preferences
+./bin/macOS-setup personal-settings
+
+# Optional follow-up for fzf keybindings and completions
 /opt/homebrew/opt/fzf/install
 ```
 
@@ -51,7 +126,7 @@ BREW_CASK_CONFLICT_POLICY=force ./bin/macOS-setup install
 BREW_CASK_CONFLICT_POLICY=skip ./bin/macOS-setup install
 ```
 
-`./bin/macOS-setup install` will:
+Running `./bin/macOS-setup install` will:
 
 - install Homebrew if needed
 - clone or update the configured dotfiles repo
@@ -75,7 +150,7 @@ If someone else wants to use these repos on their own Mac, the clean path is:
 1. Fork [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles/).
 2. Copy the `*.example` files in [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles/) to their ignored `*.local`
    counterparts.
-3. Configure their SSH keys and Git identities using [SSH Keys](/Users/nesbert/Code/github.com/nesbert/macOS-setup/docs/ssh-keys.md) and [Multiple Git Accounts](/Users/nesbert/Code/github.com/nesbert/macOS-setup/docs/multiple-git-accounts.md).
+3. Configure their SSH keys and Git identities using [docs/ssh-keys.md](docs/ssh-keys.md) and [docs/multiple-git-accounts.md](docs/multiple-git-accounts.md).
 4. Optionally create `config.local/` files in [macOS-setup](https://github.com/nesbert/macOS-setup/) to trim or expand
    the Homebrew package list without changing the shared defaults.
 
@@ -197,6 +272,6 @@ opt-in.
 
 ## Inspired By
 
-- https://medium.com/macoclock/automating-your-macos-setup-with-homebrew-and-cask-e2a103b51af1
-- https://www.lotharschulz.info/2021/05/11/macos-setup-automation-with-homebrew/
-- https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+- [https://medium.com/macoclock/automating-your-macos-setup-with-homebrew-and-cask-e2a103b51af1](https://medium.com/macoclock/automating-your-macos-setup-with-homebrew-and-cask-e2a103b51af1)
+- [https://www.lotharschulz.info/2021/05/11/macos-setup-automation-with-homebrew/](https://www.lotharschulz.info/2021/05/11/macos-setup-automation-with-homebrew/)
+- [https://github.com/mathiasbynens/dotfiles/blob/main/.macos](https://github.com/mathiasbynens/dotfiles/blob/main/.macos)
