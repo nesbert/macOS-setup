@@ -4,6 +4,8 @@ IFS=$'\n\t'
 
 HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 
+source "$HOME/.zshrc"
+
 export NVM_DIR="$HOME/.nvm"
 mkdir -p "$NVM_DIR"
 
