@@ -14,7 +14,7 @@ print_package_list_source() {
   local package_type="$1"
   local list_path="$2"
 
-  echo "Installing ${package_type} from ${list_path}..."
+  echo "ℹ️ Installing ${package_type} from ${list_path}..."
 }
 
 validate_brew_cask_conflict_policy() {
@@ -51,7 +51,7 @@ brew_install_package() {
       ;;
     skip)
       if ! brew install --cask "${package}"; then
-        echo "Skipping cask ${package} because install failed under BREW_CASK_CONFLICT_POLICY=skip." >&2
+        echo "⚠️ Skipping cask ${package} because install failed under BREW_CASK_CONFLICT_POLICY=skip." >&2
         return 2
       fi
       ;;
@@ -67,13 +67,13 @@ install_brew_packages_from_list() {
   local -a skipped_packages=()
 
   if [[ ! -f "${list_path}" ]]; then
-    echo "Missing package list: ${list_path}" >&2
+    echo "⚠️ Missing package list: ${list_path}" >&2
     return 1
   fi
 
   if [[ "${brew_args}" == "--cask" ]]; then
     validate_brew_cask_conflict_policy
-    echo "Using BREW_CASK_CONFLICT_POLICY=${cask_conflict_policy}."
+    echo "ℹ️ Using BREW_CASK_CONFLICT_POLICY=${cask_conflict_policy}."
   fi
 
   print_package_list_source "${package_type}" "${list_path}"

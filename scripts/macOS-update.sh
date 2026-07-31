@@ -8,10 +8,11 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 SCRIPTS_DIR="${REPO_ROOT}/scripts"
 
 if command -v brew >/dev/null 2>&1; then
-  echo "Updating Homebrew..."
+  echo "ℹ️ Updating Homebrew..."
   brew update
   brew upgrade
 fi
 
 # Update The Ultimate vimrc
+echo "ℹ️ Updating The Ultimate vimrc..."
 "${SCRIPTS_DIR}/vim-settings.sh" update

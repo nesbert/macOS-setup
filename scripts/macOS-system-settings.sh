@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Running DX-focused macOS defaults..."
+echo "ℹ️ Running DX-focused macOS defaults..."
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -16,7 +16,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Finder                                                                      #
 ###############################################################################
 
-echo "Finder: Adjust developer-friendly preferences."
+echo "ℹ️ Finder: Adjust developer-friendly preferences."
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -61,19 +61,19 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 # Dock and Keyboard                                                           #
 ###############################################################################
 
-echo "Dock: Adjust developer-friendly preferences."
+echo "ℹ️ Dock: Adjust developer-friendly preferences."
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock showhidden -bool true
 defaults write com.apple.dock show-recents -bool false
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.2
 
-echo "Keyboard: Set repeat behavior for fast terminal and editor input."
+echo "ℹ️ Keyboard: Set repeat behavior for fast terminal and editor input."
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
-echo "Spaces: Don’t automatically rearrange Spaces based on most recent use."
+echo "ℹ️ Spaces: Don’t automatically rearrange Spaces based on most recent use."
 defaults write com.apple.dock mru-spaces -bool false
 
 ###############################################################################
@@ -87,5 +87,5 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
 
-echo "Dock: restarting..."
+echo "ℹ️ Dock: restarting..."
 killall Dock

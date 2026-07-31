@@ -2,7 +2,7 @@
 
 HOME="${HOME:-$(eval echo ~${SUDO_USER:-$USER})}"
 
-echo "Running personal macOS preferences..."
+echo "ℹ️ Running personal macOS preferences..."
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -18,7 +18,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Finder                                                                      #
 ###############################################################################
 
-echo "Finder: Apply personal desktop and removable media preferences."
+echo "ℹ️ Finder: Apply personal desktop and removable media preferences."
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
@@ -32,7 +32,7 @@ sudo chflags nohidden /Volumes
 # Disk Images                                                                 #
 ###############################################################################
 
-echo "Disk Images: Apply convenience-focused preferences."
+echo "ℹ️ Disk Images: Apply convenience-focused preferences."
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
@@ -44,7 +44,7 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 # Dock, Hot Corners, and Input                                                #
 ###############################################################################
 
-echo "Hot Corners: Apply personal workflow shortcuts."
+echo "ℹ️ Hot Corners: Apply personal workflow shortcuts."
 # Top left screen corner → Application Windows
 defaults write com.apple.dock wvous-tl-corner -int 3
 defaults write com.apple.dock wvous-tl-modifier -int 0
@@ -58,7 +58,7 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 5
 defaults write com.apple.dock wvous-br-modifier -int 0
 
-echo "Trackpad: enable tap to click for this user and for the login screen."
+echo "ℹ️ Trackpad: enable tap to click for this user and for the login screen."
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -67,11 +67,11 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # Screen                                                                      #
 ###############################################################################
 
-echo "Screen: Apply personal screenshot and display preferences."
+echo "ℹ️ Screen: Apply personal screenshot and display preferences."
 mkdir -p "${HOME}/Pictures/Screenshots"
 defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
 defaults write NSGlobalDomain AppleFontSmoothing -int 1
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
-echo "Dock: restarting..."
+echo "ℹ️ Dock: restarting..."
 killall Dock

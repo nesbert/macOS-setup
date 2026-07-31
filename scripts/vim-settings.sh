@@ -23,17 +23,17 @@ apply_custom_config() {
 
 case "$1" in
   install)
-    echo "Installing Ultimate Vim configuration..."
+    echo "ℹ️ Installing Ultimate Vim configuration..."
 
     if [[ -d "${HOME_VIM_RUNTIME}" ]]; then
-      echo "Skipping .vim_runtime already added ${HOME}."
+      echo "ℹ️ Skipping .vim_runtime already added ${HOME}."
     else
       git clone --depth=1 https://github.com/amix/vimrc.git "${HOME_VIM_RUNTIME}"
       sh "${HOME_VIM_RUNTIME}"/install_awesome_vimrc.sh
     fi
 
     if [[ -d "${HOME_VIM_NORD}" ]]; then
-      echo "Skipping Nord for Vim theme already installed in ${HOME}."
+      echo "ℹ️ Skipping Nord for Vim theme already installed in ${HOME}."
     else
       echo "Installing Nord for Vim theme..."
       [ -d "${HOME_VIM_THEME_ROOT}" ] || mkdir -p "${HOME_VIM_THEME_ROOT}"
@@ -48,7 +48,7 @@ case "$1" in
 
     # skip if already installed
     if [[ ! -d "${HOME_VIM_RUNTIME}" ]]; then
-      echo "Skipping .vim_runtime not install in ${HOME}."
+      echo "ℹ️ Skipping .vim_runtime not install in ${HOME}."
       exit 0
     fi
 
@@ -60,10 +60,10 @@ case "$1" in
     mv "${TMP_MY_CONFIG_VIM}" "${MY_CONFIG_VIM}"
 
     if [[ -d "${HOME_VIM_NORD}" ]]; then
-      echo "Updating Nord for Vim theme..."
+      echo "ℹ️ Updating Nord for Vim theme..."
       rm -rf "${HOME_VIM_NORD}"
     else
-      echo "Installing Nord for Vim theme..."
+      echo "ℹ️ Installing Nord for Vim theme..."
     fi
 
     [ -d "${HOME_VIM_THEME_ROOT}" ] || mkdir -p "${HOME_VIM_THEME_ROOT}"
@@ -72,11 +72,11 @@ case "$1" in
     ;;
 
   remove)
-    echo "Removing Ultimate Vim configuration..."
+    echo "ℹ️ Removing Ultimate Vim configuration..."
 
     # skip if already installed
     if [[ ! -d "${HOME_VIM_RUNTIME}" ]]; then
-      echo "Skipping .vim_runtime not install in ${HOME}."
+      echo "ℹ️ Skipping .vim_runtime not install in ${HOME}."
       exit 0
     fi
 
@@ -87,7 +87,7 @@ case "$1" in
     echo "rm -rf ${HOME}/.vimrc"
 
     if [[ ! -d "${HOME_VIM_NORD}" ]]; then
-      echo "Skipping Nord for Vim theme not install in ${HOME}."
+      echo "ℹ️ Skipping Nord for Vim theme not install in ${HOME}."
       exit 0
     fi
 

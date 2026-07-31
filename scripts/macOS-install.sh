@@ -23,7 +23,7 @@ BREW_JDKS_FILE="${BREW_JDKS_FILE:-${LOCAL_CONFIG_DIR}/brew-jdks.txt}"
 source "${SCRIPT_DIR}/lib/macOS-install-helpers.sh"
 
 # find the CLI Tools update
-echo "Checking for CLI Tool updates..."
+echo "ℹ️ Checking for CLI Tool updates..."
 PROD=$(softwareupdate -l | grep "\*.*Command Line" | head -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n') || true
 # install CLIE Tools update
 if [[ ! -z "$PROD" ]]; then
@@ -35,7 +35,7 @@ if ! command -v brew >/dev/null 2>&1; then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  echo "Added Homebrew shell to ${HOME_ZPROFILE}."
+  echo "ℹ️ Added Homebrew shell to ${HOME_ZPROFILE}."
   echo '# Add Homebrew support' >> "${HOME_ZPROFILE}"
 
   # load shellenv for Apple Silicon
@@ -74,11 +74,7 @@ run_script nvm-nodejs.sh
 # Install The Ultimate vimrc
 run_script vim-settings.sh install
 
-# Setup DX-focused macOS system settings
-run_script macOS-system-settings.sh
-
-# Setup personal macOS preferences
-# run_script macOS-personal-settings.sh
-
-echo "Install complete."
-echo "Open a new Ghostty or zsh session to load your updated shell configuration."
+echo "🥳 Install complete."
+echo "ℹ️ Open a new Ghostty or zsh session to load your updated shell configuration."
+exit 0
+:w
