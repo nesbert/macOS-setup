@@ -54,6 +54,11 @@ fi
 # Clone dotfiles repo early so package selections can come from dotfiles.
 setup_dotfiles_repo
 
+# Link configurations
+backup_and_link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+backup_and_link "$DOTFILES_DIR/.config" "$HOME/.config"
+source "$HOME/.zshrc"
+
 BREW_FORMULAE_FILE="$(use_default_if_missing "${BREW_FORMULAE_FILE}" "${REPO_ROOT}/config/brew-formulae.txt")"
 BREW_CASKS_FILE="$(use_default_if_missing "${BREW_CASKS_FILE}" "${REPO_ROOT}/config/brew-casks.txt")"
 BREW_JDKS_FILE="$(use_default_if_missing "${BREW_JDKS_FILE}" "${REPO_ROOT}/config/brew-jdks.txt")"
@@ -74,9 +79,6 @@ run_script macOS-system-settings.sh
 
 # Setup personal macOS preferences
 # run_script macOS-personal-settings.sh
-
-backup_and_link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-backup_and_link "$DOTFILES_DIR/.config" "$HOME/.config"
 
 echo "Install complete."
 echo "Open a new Ghostty or zsh session to load your updated shell configuration."
