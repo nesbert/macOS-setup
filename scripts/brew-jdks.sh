@@ -8,7 +8,7 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 # shellcheck source=./lib/brew-package-helpers.sh
 source "${SCRIPT_DIR}/lib/brew-package-helpers.sh"
 
-BREW_JDKS_FILE="${BREW_JDKS_FILE:-${REPO_ROOT}/config/brew-jdks.txt}"
+BREW_JDKS_FILE="${1:-${REPO_ROOT}/config/brew-jdks.txt}"
 
 install_brew_packages_from_list "Homebrew JDK casks" "--cask" "${BREW_JDKS_FILE}"
 

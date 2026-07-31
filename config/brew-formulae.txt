@@ -1,20 +1,14 @@
 # One Homebrew forumulae token per line.
 bat
-claude
 codex
 colordiff
-copilot-cli
 coreutils
 fastfetch
 findutils
-font-go-mono-nerd-font
-font-jetbrains-mono-nerd-font
-font-meslo-lg-nerd-font
 fzf
 gawk
 gh
 git
-gemini-cli
 gnu-indent
 gnu-sed
 gnu-tar
@@ -24,7 +18,6 @@ jenv
 jq
 nvm
 pyenv
-sf-symbols
 starship
 tree
 vim

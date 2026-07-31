@@ -8,6 +8,6 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 # shellcheck source=./lib/brew-package-helpers.sh
 source "${SCRIPT_DIR}/lib/brew-package-helpers.sh"
 
-BREW_FORMULAE_FILE="${BREW_FORMULAE_FILE:-${REPO_ROOT}/config/brew-formulae.txt}"
+BREW_FORMULAE_FILE="${1:-${REPO_ROOT}/config/brew-formulae.txt}"
 
 install_brew_packages_from_list "brew formulae" "" "${BREW_FORMULAE_FILE}"

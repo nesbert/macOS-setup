@@ -1,14 +1,13 @@
 # One Homebrew cask token per line.
 aldente
 appcleaner
-arc
 bruno
-chatgpt
-codex-app
-copilot-cli
 discord
-docker
+font-go-mono-nerd-font
+font-jetbrains-mono-nerd-font
+font-meslo-lg-nerd-font
 ghostty
 github
 obsidian
+sf-symbols
 visual-studio-code

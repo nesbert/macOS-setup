@@ -64,9 +64,9 @@ BREW_CASKS_FILE="$(use_default_if_missing "${BREW_CASKS_FILE}" "${REPO_ROOT}/con
 BREW_JDKS_FILE="$(use_default_if_missing "${BREW_JDKS_FILE}" "${REPO_ROOT}/config/brew-jdks.txt")"
 
 # Install brew & cask apps
-run_script brew-formulae.sh
-run_script brew-casks.sh
-run_script brew-jdks.sh
+run_script brew-formulae.sh "$BREW_FORMULAE_FILE"
+run_script brew-casks.sh "$BREW_CASKS_FILE"
+run_script brew-jdks.sh "$BREW_JDKS_FILE"
 
 # Install NodeJS with nvm
 run_script nvm-nodejs.sh
