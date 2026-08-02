@@ -87,5 +87,6 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
 
-echo "ℹ️ Dock: restarting..."
+echo "ℹ️ Dock & Spotlight: restarting..."
 killall Dock
+killall Spotlight

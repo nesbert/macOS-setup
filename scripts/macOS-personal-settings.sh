@@ -19,7 +19,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 echo "ℹ️ Finder: Apply personal desktop and removable media preferences."
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool false
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
@@ -73,5 +73,6 @@ defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screen
 defaults write NSGlobalDomain AppleFontSmoothing -int 1
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
-echo "ℹ️ Dock: restarting..."
+echo "ℹ️ Dock & Spotlight: restarting..."
 killall Dock
+killall Spotlight
