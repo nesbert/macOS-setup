@@ -1,0 +1,20 @@
+name: Commit messages
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate commit message
+        run: |
+          subject="$(git log -1 --pretty=%s)"
+          printf '%s\n' "$subject" > .git/COMMIT_EDITMSG
+          bash .repo-guardrails/commitlint.sh .git/COMMIT_EDITMSG

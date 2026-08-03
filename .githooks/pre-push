@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/*)
+      [[ "$local_sha" == 0000000000000000000000000000000000000000 ]] || "$root/.repo-guardrails/branchlint.sh" "${remote_ref#refs/heads/}"
+      ;;
+  esac
+done

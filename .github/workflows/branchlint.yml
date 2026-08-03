@@ -1,0 +1,17 @@
+name: Branch name
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  branchlint:
+    name: Branchlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate pushed or pull request branch
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: bash .repo-guardrails/branchlint.sh "$BRANCH_NAME"
