@@ -24,8 +24,28 @@ Commands:
 EOF
 }
 
+check_github_ssh() {
+  local ssh_output
+
+  # GitHub typically returns a non-zero code for -T even on successful auth.
+  if ssh_output="$(ssh -o BatchMode=yes -o ConnectTimeout=5 -T git@github.com 2>&1)"; then
+    return 0
+  fi
+
+  if [[ "${ssh_output}" != *"successfully authenticated"* ]]; then
+    echo "Error: Cannot connect to GitHub via SSH" >&2
+    echo "Please verify your SSH configuration. See docs/ssh-keys.md for instructions." >&2
+    exit 1
+  fi
+}
+
 main() {
   local command="${1:-help}"
+
+  # Skip SSH check for help command
+  if [ "${command}" != "help" ] && [ "${command}" != "-h" ] && [ "${command}" != "--help" ]; then
+    check_github_ssh
+  fi
 
   case "${command}" in
     install)

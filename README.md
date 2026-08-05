@@ -27,19 +27,7 @@ Before you run the installer, make sure the following are ready:
 xcode-select --install
 ```
 
-### Optional: Install Rosetta 2 if you need Intel-based binaries such as some Docker builds
-
-```sh
-softwareupdate --install-rosetta
-```
-
-### Optional: Agree to the Xcode license
-
-```sh
-sudo xcodebuild -license accept
-```
-
-### Set up SSH and Git signing
+### Set up GitHub SSH and Git signing
 
 Use the official GitHub documentation for full details, then add a minimal SSH config for the default paths:
 
@@ -51,7 +39,7 @@ Host github.com
   IdentityFile ~/.ssh/id_ed25519
 ```
 
-Create a new authentication key:
+Create a new authentication and signing key:
 
 ```sh
 ssh-keygen -t ed25519 -C "your-email@example.com"
@@ -62,7 +50,7 @@ eval "$(ssh-agent -s)"
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
 pbcopy < ~/.ssh/id_ed25519.pub
-open https://github.com/settings/ssh/new
+open https://github.com/settings/ssh/new # 2x
 ```
 
 If you also want commit signing, configure your signing key:

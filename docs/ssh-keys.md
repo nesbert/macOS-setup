@@ -1,12 +1,18 @@
 # SSH Keys
 
-This guide covers both the simple single-account setup and the more complex
-multi-account setup for Git hosting over SSH.
+This guide covers both the default single-key setup and the optional
+multi-host setup for Git hosting over SSH.
+
+Use this with:
+
+- [README.md](../README.md) for the default single-account bootstrap flow
+- [multiple-git-accounts.md](multiple-git-accounts.md) when you also need per-repo Git identity routing
 
 ## Simple Setup
 
-If you only use one GitHub account on the machine, you usually only need one
-SSH key.
+If you only use one GitHub account on the machine, use a single SSH key.
+That is the default and is all most people need (same flow as in
+`README.md`).
 
 Generate a key:
 
@@ -31,12 +37,19 @@ Then verify the connection:
 ssh -T git@github.com
 ```
 
-For a single account, you often do not need any custom `~/.ssh/config` entry.
+For a single account, you usually do not need multi-host aliases.
 
-## Multiple Accounts
+If you also only use one Git identity, stop here and follow the simple Git
+identity commands in [multiple-git-accounts.md](multiple-git-accounts.md).
 
-If you use multiple GitHub accounts on the same machine, use separate keys and
-SSH host aliases.
+## Multi-Host Setup (Only When Needed)
+
+Only use this setup when you need multiple SSH keys for different accounts or
+environments (for example, personal and work).
+
+If you only need one key, stop at the Simple Setup above.
+
+When multiple keys are required, use separate keys and SSH host aliases.
 
 Typical setup:
 
@@ -77,3 +90,7 @@ ssh -T git@github-work
 If you use the companion `macOS-dotfiles` repo, the clean pattern is to keep
 machine-specific SSH settings in an ignored local file such as
 `~/.ssh/config.local` and load it from your main SSH config.
+
+When using multiple accounts, pair this SSH setup with
+[multiple-git-accounts.md](multiple-git-accounts.md) so both transport (SSH
+key) and commit identity (name/email/signing) are routed correctly.
