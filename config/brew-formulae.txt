@@ -16,7 +16,6 @@ gnu-which
 grep
 jenv
 jq
-nvm
 pyenv
 starship
 tree

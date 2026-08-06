@@ -14,6 +14,11 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! brew list --formula nvm >/dev/null 2>&1; then
+  echo "ℹ️ Installing nvm with Homebrew..."
+  brew install nvm
+fi
+
 NVM_SCRIPT="$(brew --prefix nvm)/nvm.sh"
 
 if [[ ! -f "$NVM_SCRIPT" ]]; then
