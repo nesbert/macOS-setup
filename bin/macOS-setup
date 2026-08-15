@@ -11,6 +11,7 @@ usage() {
 Usage:
   ./bin/macOS-setup install
   ./bin/macOS-setup update
+  ./bin/macOS-setup ghostty-shaders
   ./bin/macOS-setup system-settings
   ./bin/macOS-setup personal-settings
   ./bin/macOS-setup help
@@ -18,6 +19,7 @@ Usage:
 Commands:
   install            Bootstrap Homebrew, packages, dotfiles, and DX defaults
   update             Update Homebrew packages/casks and refresh vim config
+  ghostty-shaders    Download shader repositories and configure Ghostty links
   system-settings    Apply DX-focused macOS system settings
   personal-settings  Apply personal macOS preferences
   help               Show this help message
@@ -53,6 +55,9 @@ main() {
       ;;
     update)
       exec "${SCRIPTS_DIR}/macOS-update.sh"
+      ;;
+    ghostty-shaders)
+      exec "${SCRIPTS_DIR}/ghostty-shaders.sh"
       ;;
     system-settings)
       exec "${SCRIPTS_DIR}/macOS-system-settings.sh"

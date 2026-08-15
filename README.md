@@ -104,6 +104,9 @@ You may be prompted for your password several times during setup.
 # Optional: apply personal UI and input preferences
 ./bin/macOS-setup personal-settings
 
+# Optional: download Ghostty shader repositories and create local symlinks
+./bin/macOS-setup ghostty-shaders
+
 # Optional follow-up for fzf keybindings and completions
 /opt/homebrew/opt/fzf/install
 ```
@@ -138,6 +141,17 @@ dotfiles, set these before running install:
 DOTFILES_REPO_URL=https://github.com/<you>/macOS-dotfiles.git ./bin/macOS-setup install
 DOTFILES_DIR=$HOME/Code/github.com/<you>/macOS-dotfiles ./bin/macOS-setup install
 ```
+
+Ghostty shaders are intentionally not installed by the normal `install`
+command. To download the shader repositories and create the symlinks used by
+the dotfiles config, run:
+
+```sh
+./bin/macOS-setup ghostty-shaders
+```
+
+The default locations are under `~/Code/github.com`. Override them when
+needed with `GHOSTTY_SHADER_ROOT` and `DOTFILES_DIR`.
 
 ## Reusing This Setup
 
