@@ -9,9 +9,9 @@ repository [macOS-dotfiles](https://github.com/nesbert/macOS-dotfiles).
 
 ## Quick start
 
-If this is your first time setting up a Mac with this repo, follow this order:
+If this is your first time setting up a Mac with this repository, follow these steps:
 
-1. Complete the prerequisites above.
+1. Complete the prerequisites below.
 2. Configure SSH and Git signing keys.
 3. Clone this repo and the companion dotfiles repo.
 4. Optionally customize the Homebrew package list.
@@ -29,7 +29,7 @@ xcode-select --install
 
 ### Set up GitHub SSH and Git signing
 
-Use the official GitHub documentation for full details, then add a minimal SSH config for the default paths:
+For complete instructions, refer to the official GitHub documentation. Then add a minimal SSH configuration for the default key path:
 
 ```txt
 # ~/.ssh/config
@@ -39,23 +39,31 @@ Host github.com
   IdentityFile ~/.ssh/id_ed25519
 ```
 
-Create a new authentication and signing key:
+Create an SSH key for GitHub authentication and commit signing:
 
 ```sh
-ssh-keygen -t ed25519 -C "your-email@example.com"
+# Create a new SSH key.
+ssh-keygen -t ed25519 -C "your.email@example.com"
+
+# Configure SSH for GitHub.
 touch ~/.ssh/config
-open ~/.ssh/config
-
+vi ~/.ssh/config
 eval "$(ssh-agent -s)"
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
+# Copy the public key, then add it to your GitHub account as an authentication key and signing key.
 pbcopy < ~/.ssh/id_ed25519.pub
-open https://github.com/settings/ssh/new # 2x
+open https://github.com/settings/ssh/new
+
+# Optionally save the key in the macOS Keychain to avoid entering its passphrase
+# for each SSH operation.
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ```
 
 If you also want commit signing, configure your signing key:
 
 ```sh
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
 git config --global gpg.format ssh
 git config --global user.signingkey ~/.ssh/id_ed25519.pub
 git config --global commit.gpgsign true
@@ -64,8 +72,8 @@ git config --global commit.gpgsign true
 ### Clone the repositories
 
 ```sh
-mkdir -p Code/github.com/nesbert
-cd Code/github.com/nesbert
+mkdir -p ~/Code/github.com/nesbert
+cd ~/Code/github.com/nesbert
 git clone git@github.com:nesbert/macOS-setup.git
 git clone git@github.com:nesbert/macOS-dotfiles.git
 ```
@@ -104,7 +112,7 @@ If a cask install fails because the app already exists on the machine, rerun
 install with an explicit conflict policy:
 
 ```sh
-# default: stop on the first cask conflict or other cask install failure
+# stop on the first cask conflict or other cask install failure
 BREW_CASK_CONFLICT_POLICY=fail ./bin/macOS-setup install
 
 # overwrite existing app files for casks
@@ -188,11 +196,11 @@ BREW_JDKS_FILE=/path/to/brew-jdks.txt \
 
 The installer now supports `BREW_CASK_CONFLICT_POLICY` for Homebrew casks:
 
-- `fail` is the default. Abort on the first cask install failure.
+- `skip` is the default for the full installer. Continue past cask install
+  failures and print a summary at the end.
+- `fail` aborts on the first cask install failure.
 - `force` reruns cask installs with Homebrew's `--force` flag, which can
   overwrite existing app files.
-- `skip` treats cask install failures as non-fatal, continues with the rest of
-  the setup, and prints the skipped casks at the end.
 
 Examples:
 

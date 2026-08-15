@@ -12,7 +12,7 @@ BREW_JDKS_FILE="${1:-${REPO_ROOT}/config/brew-jdks.txt}"
 
 install_brew_packages_from_list "Homebrew JDK casks" "--cask" "${BREW_JDKS_FILE}"
 
-echo << EOF
+cat << EOF
 Please add JDKs using jEnv, for example get list of install JDKs...
 
   /usr/libexec/java_home -V

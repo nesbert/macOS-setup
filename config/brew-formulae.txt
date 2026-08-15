@@ -1,6 +1,5 @@
 # One Homebrew forumulae token per line.
 bat
-codex
 colordiff
 coreutils
 fastfetch
@@ -17,6 +16,7 @@ grep
 jenv
 jq
 pyenv
+rg
 starship
 tree
 vim

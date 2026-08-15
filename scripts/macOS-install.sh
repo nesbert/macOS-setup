@@ -63,6 +63,8 @@ BREW_FORMULAE_FILE="$(use_default_if_missing "${BREW_FORMULAE_FILE}" "${REPO_ROO
 BREW_CASKS_FILE="$(use_default_if_missing "${BREW_CASKS_FILE}" "${REPO_ROOT}/config/brew-casks.txt")"
 BREW_JDKS_FILE="$(use_default_if_missing "${BREW_JDKS_FILE}" "${REPO_ROOT}/config/brew-jdks.txt")"
 
+export BREW_CASK_CONFLICT_POLICY="${BREW_CASK_CONFLICT_POLICY:-skip}"
+
 # Install brew & cask apps
 run_script brew-formulae.sh "$BREW_FORMULAE_FILE"
 run_script brew-casks.sh "$BREW_CASKS_FILE"
@@ -77,4 +79,3 @@ run_script vim-settings.sh install
 echo "🥳 Install complete."
 echo "ℹ️ Open a new Ghostty or zsh session to load your updated shell configuration."
 exit 0
-:w
